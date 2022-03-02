@@ -3,9 +3,6 @@ import tempfile
 from django.contrib.auth import get_user_model
 
 from django.utils import timezone
-from django.db.models.fields.files import ImageFieldFile
-
-from posts.forms import PostForm
 from posts.models import Post
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -120,7 +117,7 @@ class TaskPagesTests(TestCase):
             "image": uploaded,
         }
         # Отправляем POST-запрос
-        response = self.authorized_client.post(
+        self.authorized_client.post(
             reverse("posts:post_create"), data=form_data, follow=True
         )
 

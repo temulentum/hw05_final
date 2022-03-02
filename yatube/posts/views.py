@@ -1,7 +1,5 @@
-from genericpath import exists
 from django.core.paginator import Paginator
 from django.shortcuts import (
-    get_list_or_404,
     render,
     get_object_or_404,
     redirect,

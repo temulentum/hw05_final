@@ -1,4 +1,3 @@
-from urllib import response
 from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
 from django.utils import timezone
