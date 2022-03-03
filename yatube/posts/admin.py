@@ -16,6 +16,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ("pub_date",)
     empty_value_display = "-пусто-"
 
+
 class CommentAdmin(admin.ModelAdmin):
     list_display = (
         "text",
@@ -25,6 +26,7 @@ class CommentAdmin(admin.ModelAdmin):
     search_fields = ("text",)
     list_filter = ("author",)
     empty_value_display = "-пусто-"
+
 
 class GroupAdmin(admin.ModelAdmin):
     list_display = (
