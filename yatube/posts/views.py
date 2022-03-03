@@ -68,8 +68,6 @@ def post_detail(request, post_id):
     )
     number_of_posts = Post.objects.count()
     form = CommentForm(request.POST or None)
-    # comments = Comment.objects.filter(post=post)
-
     context = {
         "post": post,
         "number_of_posts": number_of_posts,
@@ -134,7 +132,6 @@ def add_comment(request, post_id):
 
 @login_required
 def follow_index(request):
-    # информация о текущем пользователе доступна в переменной request.user
     user = request.user
 
     authors = (
@@ -158,7 +155,6 @@ def follow_index(request):
 
 @login_required
 def profile_follow(request, username):
-    # Подписаться на автора
     user = request.user
     author = get_object_or_404(User, username=username)
     if (
@@ -172,7 +168,6 @@ def profile_follow(request, username):
 
 @login_required
 def profile_unfollow(request, username):
-    # Дизлайк, отписка
     user = request.user
     author = get_object_or_404(User, username=username)
     Follow.objects.filter(user=user, author=author).delete()

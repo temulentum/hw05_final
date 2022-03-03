@@ -14,6 +14,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ("text", "group", "image")
+        label = {'image': 'Картинка'}
 
 
 class CommentForm(forms.ModelForm):

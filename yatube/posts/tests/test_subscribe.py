@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.test import Client, TestCase
 from django.urls import reverse
+from http import HTTPStatus
 
 
 User = get_user_model()
@@ -53,7 +54,7 @@ class CacheTests(TestCase):
                 kwargs={"username": self.follower.get_username()},
             )
         )
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
 
     def test_authorized_can_create_follow_obj(self):
         """Объект Follow создается??"""
@@ -75,7 +76,6 @@ class CacheTests(TestCase):
             user=self.author, author=self.follower
         ).exists():
             follow = True
-        print(f"________________________ {follow}")
         self.assertTrue(follow)
 
     def test_authorized_can_unsubscribe(self):
@@ -96,7 +96,6 @@ class CacheTests(TestCase):
             user=self.author, author=self.follower
         ).exists():
             follow = True
-        print(f"________________________ {follow}")
         self.assertTrue(follow)
 
     def test_new_post_in_followers_feed(self):
