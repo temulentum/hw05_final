@@ -94,19 +94,24 @@ def post_create(request):
 
 
 def post_edit(request, post_id):
-    if request.method == "GET":
-        post = get_object_or_404(Post, pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == 'GET' and post.author.id == request.user.id:
         form = PostForm(instance=post)
-        if post.author.id == request.user.id:
-            context = {"form": form, "is_edit": True, "post_id": post_id}
-            return render(request, "posts/create_post.html", context)
-        else:
-            return redirect("posts:post_detail", post_id=post_id)
+        context = {
+            "form": form,
+            "is_edit": True,
+            "post_id": post_id}
+        return render(request, "posts/create_post.html", context)
+        
+    if post.author.id != request.user.id:
+        return redirect("posts:post_detail", post_id=post_id)
 
-    elif request.method == "POST":
+    if request.method == "POST":
         post = get_object_or_404(Post, pk=post_id)
         form = PostForm(
-            request.POST or None, files=request.FILES or None, instance=post
+            request.POST or None,
+            files=request.FILES or None,
+            instance=post
         )
         if form.is_valid():
             post = form.save(commit=False)
@@ -157,9 +162,7 @@ def follow_index(request):
 def profile_follow(request, username):
     user = request.user
     author = get_object_or_404(User, username=username)
-    if (
-        not user == author
-    ):
+    if user != author:
         Follow.objects.get_or_create(user=user, author=author)
         return redirect("posts:profile", username=author.get_username())
     return redirect("posts:profile", username=author.get_username())
