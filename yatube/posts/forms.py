@@ -21,7 +21,7 @@ class CommentForm(forms.ModelForm):
         data = self.cleaned_data["text"]
         if not data:
             raise forms.ValidationError("поле Text не должно быть пустым")
-        return data 
+        return data
 
     class Meta:
         model = Comment
