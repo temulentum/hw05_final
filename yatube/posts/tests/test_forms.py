@@ -27,14 +27,12 @@ class TaskPostFormTests(TestCase):
 
     def test_cant_create_empty_post(self):
         """Проверка формы: поле с текстом не может быть пустым"""
-        posts_count = Post.objects.count()
         form_data = {
             "text": "",
         }
         response = self.authorized_client.post(
             reverse("posts:post_create"), data=form_data, follow=True
         )
-        self.assertEqual(Post.objects.count(), posts_count)
         self.assertFormError(response, "form", "text", "Обязательное поле.")
         self.assertEqual(response.status_code, 200)
 

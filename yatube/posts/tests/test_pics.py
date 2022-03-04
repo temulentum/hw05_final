@@ -59,8 +59,6 @@ class TaskPagesTests(TestCase):
 
     def test_post_detail_pic(self):
         """для post_detail передается правильный контекст с картинкой"""
-        print("____context with pic for post_detail_____")
-
         response = self.guest_client.get(
             reverse("posts:post_detail", kwargs={"post_id": self.post.id})
         )
@@ -72,7 +70,6 @@ class TaskPagesTests(TestCase):
         """картинка отдается в index"""
         response = self.guest_client.get(reverse("posts:index"))
         obj = response.context.get("page_obj")[0]
-        print(f"картинка в индексе {obj}")
         self.assertEqual(obj.image, self.post.image)
 
     def test_profile_contains_pic(self):
@@ -84,7 +81,6 @@ class TaskPagesTests(TestCase):
             )
         )
         obj = response.context.get("page_obj")[0]
-        print(f"картинка в profile {obj}")
         self.assertEqual(obj.image, self.post.image)
 
     def test_group_list_contains_pic(self):
@@ -93,13 +89,10 @@ class TaskPagesTests(TestCase):
             reverse("posts:group_list", kwargs={"slug": self.post.group.slug})
         )
         obj = response.context.get("page_obj")[0]
-        print(f"картинка в group_list {obj}")
         self.assertEqual(obj.image, self.post.image)
 
     def test_form_create_with_pic(self):
         """Тестируем форму с картинкой"""
-
-        print("_____Тестируем форму с картинкой____")
         small_gif = (
             b"\x47\x49\x46\x38\x39\x61\x02\x00"
             b"\x01\x00\x80\x00\x00\x00\x00\x00"
