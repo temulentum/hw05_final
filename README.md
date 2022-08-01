@@ -56,3 +56,4 @@ python manage.py runserver
 
 - python 3.7
 - django
+- Django REST framework
